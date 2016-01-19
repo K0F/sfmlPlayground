@@ -7,7 +7,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-
+#include <math.h>
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -148,7 +148,7 @@ int draw(sf::Clock clock){
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   glTranslatef(0.f, 0.f, -200.f);
-  glRotatef(clock.getElapsedTime().asSeconds() * 500, 1.f, 0.f, 0.f);
+  glRotatef(clock.getElapsedTime().asSeconds() * 5, 1.f, 0.f, 0.f);
   glRotatef(clock.getElapsedTime().asSeconds() * 30, 0.f, 1.f, 0.f);
   glRotatef(clock.getElapsedTime().asSeconds() * 90, 0.f, 0.f, 1.f);
 
