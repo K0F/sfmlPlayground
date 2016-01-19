@@ -2,8 +2,8 @@
 // Headers
 ////////////////////////////////////////////////////////////
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-
 
 ////////////////////////////////////////////////////////////
 /// Entry point of application
@@ -18,10 +18,21 @@ int main()
     contextSettings.depthBits = 24;
 
     // Create the main window
-    sf::Window window(sf::VideoMode(640, 480), "Hello World OPENGL", sf::Style::Default, contextSettings);
-
+    sf::RenderWindow window(sf::VideoMode(640, 480), "Hello World OPENGL", sf::Style::Default, contextSettings);
+    window.setVerticalSyncEnabled(true);
+    
     // Make it the active window for OpenGL calls
     window.setActive();
+
+
+    sf::Font font;
+    if(!font.loadFromFile("resources/SempliceRegular.ttf"))
+      return EXIT_FAILURE;
+
+
+    sf::Text text("Hello world!",font);
+    text.setColor(sf::Color(255,255,255,170));
+    text.setPosition(20.f,20.f);
 
     // Set the color and depth clear values
     glClearDepth(1.f);
@@ -137,6 +148,10 @@ int main()
 
         // Draw the cube
         glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        window.pushGLStates();
+        window.draw(text);
+        window.popGLStates();
 
         // Finally, display the rendered frame on screen
         window.display();
