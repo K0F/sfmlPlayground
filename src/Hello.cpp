@@ -32,10 +32,7 @@
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
-
 int frameCount = 0;
-
-using namespace std;
 
 sf::ContextSettings contextSettings;
 sf::RenderWindow window;
@@ -115,7 +112,7 @@ int setup(){
     return EXIT_FAILURE;
 
   text.setFont(font);
-  text.setColor(sf::Color(255,255,255,75));
+  text.setFillColor(sf::Color(255,255,255,75));
   text.setPosition(20.f,20.f);
   text.setCharacterSize(8);
 
