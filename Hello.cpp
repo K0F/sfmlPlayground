@@ -13,37 +13,80 @@ int frameCount = 0;
 
 using namespace std;
 
+sf::ContextSettings contextSettings;
+sf::RenderWindow window;
+sf::Font font;
+sf::Text text;
+GLfloat ratio;
 
-////////////////////////////////////////////////////////////
-/// Entry point of application
-///
-/// \return Application exit code
-///
-////////////////////////////////////////////////////////////
-int main()
+// Define a 3D cube (6 faces made of 2 triangles composed by 3 vertices)
+GLfloat cube[] =
 {
-  // Request a 24-bits depth buffer when creating the window
-  sf::ContextSettings contextSettings;
-  contextSettings.depthBits = 24;
+  // positions    // colors (r, g, b, a)
+  -50, -50, -50,  0, 0, 1, 1,
+  -50,  50, -50,  0, 0, 1, 1,
+  -50, -50,  50,  0, 0, 1, 1,
+  -50, -50,  50,  0, 0, 1, 1,
+  -50,  50, -50,  0, 0, 1, 1,
+  -50,  50,  50,  0, 0, 1, 1,
 
+  50, -50, -50,  0, 1, 0, 1,
+  50,  50, -50,  0, 1, 0, 1,
+  50, -50,  50,  0, 1, 0, 1,
+  50, -50,  50,  0, 1, 0, 1,
+  50,  50, -50,  0, 1, 0, 1,
+  50,  50,  50,  0, 1, 0, 1,
+
+  -50, -50, -50,  1, 0, 0, 1,
+  50, -50, -50,  1, 0, 0, 1,
+  -50, -50,  50,  1, 0, 0, 1,
+  -50, -50,  50,  1, 0, 0, 1,
+  50, -50, -50,  1, 0, 0, 1,
+  50, -50,  50,  1, 0, 0, 1,
+
+  -50,  50, -50,  0, 1, 1, 1,
+  50,  50, -50,  0, 1, 1, 1,
+  -50,  50,  50,  0, 1, 1, 1,
+  -50,  50,  50,  0, 1, 1, 1,
+  50,  50, -50,  0, 1, 1, 1,
+  50,  50,  50,  0, 1, 1, 1,
+
+  -50, -50, -50,  1, 0, 1, 1,
+  50, -50, -50,  1, 0, 1, 1,
+  -50,  50, -50,  1, 0, 1, 1,
+  -50,  50, -50,  1, 0, 1, 1,
+  50, -50, -50,  1, 0, 1, 1,
+  50,  50, -50,  1, 0, 1, 1,
+
+  -50, -50,  50,  1, 1, 0, 1,
+  50, -50,  50,  1, 1, 0, 1,
+  -50,  50,  50,  1, 1, 0, 1,
+  -50,  50,  50,  1, 1, 0, 1,
+  50, -50,  50,  1, 1, 0, 1,
+  50,  50,  50,  1, 1, 0, 1,
+};
+
+
+
+int setup(){
+  contextSettings.depthBits = 24;
+  // Request a 24-bits depth buffer when creating the window
   // Create the main window
-  sf::RenderWindow window(sf::VideoMode(640, 480), "Hello World OPENGL", sf::Style::Default, contextSettings);
+  window.create(sf::VideoMode(640, 480), "Hello World OPENGL", sf::Style::Default, contextSettings);
   window.setVerticalSyncEnabled(true);
   window.setFramerateLimit(60);
 
   // Make it the active window for OpenGL calls
   window.setActive();
 
-
-  sf::Font font;
   if(!font.loadFromFile("resources/SempliceRegular.ttf"))
     return EXIT_FAILURE;
 
-
-  sf::Text text("Hello world!",font);
+  text.setFont(font);
   text.setColor(sf::Color(255,255,255,170));
   text.setPosition(20.f,20.f);
   text.setCharacterSize(8);
+
 
   // Set the color and depth clear values
   glClearDepth(1.f);
@@ -63,55 +106,8 @@ int main()
   // Setup a perspective projection
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  GLfloat ratio = static_cast<float>(window.getSize().x) / window.getSize().y;
+  ratio = static_cast<float>(window.getSize().x) / window.getSize().y;
   glFrustum(-ratio, ratio, -1.f, 1.f, 1.f, 500.f);
-
-  // Define a 3D cube (6 faces made of 2 triangles composed by 3 vertices)
-  GLfloat cube[] =
-  {
-    // positions    // colors (r, g, b, a)
-    -50, -50, -50,  0, 0, 1, 1,
-    -50,  50, -50,  0, 0, 1, 1,
-    -50, -50,  50,  0, 0, 1, 1,
-    -50, -50,  50,  0, 0, 1, 1,
-    -50,  50, -50,  0, 0, 1, 1,
-    -50,  50,  50,  0, 0, 1, 1,
-
-    50, -50, -50,  0, 1, 0, 1,
-    50,  50, -50,  0, 1, 0, 1,
-    50, -50,  50,  0, 1, 0, 1,
-    50, -50,  50,  0, 1, 0, 1,
-    50,  50, -50,  0, 1, 0, 1,
-    50,  50,  50,  0, 1, 0, 1,
-
-    -50, -50, -50,  1, 0, 0, 1,
-    50, -50, -50,  1, 0, 0, 1,
-    -50, -50,  50,  1, 0, 0, 1,
-    -50, -50,  50,  1, 0, 0, 1,
-    50, -50, -50,  1, 0, 0, 1,
-    50, -50,  50,  1, 0, 0, 1,
-
-    -50,  50, -50,  0, 1, 1, 1,
-    50,  50, -50,  0, 1, 1, 1,
-    -50,  50,  50,  0, 1, 1, 1,
-    -50,  50,  50,  0, 1, 1, 1,
-    50,  50, -50,  0, 1, 1, 1,
-    50,  50,  50,  0, 1, 1, 1,
-
-    -50, -50, -50,  1, 0, 1, 1,
-    50, -50, -50,  1, 0, 1, 1,
-    -50,  50, -50,  1, 0, 1, 1,
-    -50,  50, -50,  1, 0, 1, 1,
-    50, -50, -50,  1, 0, 1, 1,
-    50,  50, -50,  1, 0, 1, 1,
-
-    -50, -50,  50,  1, 1, 0, 1,
-    50, -50,  50,  1, 1, 0, 1,
-    -50,  50,  50,  1, 1, 0, 1,
-    -50,  50,  50,  1, 1, 0, 1,
-    50, -50,  50,  1, 1, 0, 1,
-    50,  50,  50,  1, 1, 0, 1,
-  };
 
   // Enable position and color vertex components
   glEnableClientState(GL_VERTEX_ARRAY);
@@ -123,9 +119,55 @@ int main()
   glDisableClientState(GL_NORMAL_ARRAY);
   glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
-  // Create a clock for measuring the time elapsed
-  sf::Clock clock;
+  return 0;
+}
 
+
+int draw(sf::Clock clock){
+
+  // Clear the color and depth buffers
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  // Apply some transformations to rotate the cube
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+  glTranslatef(0.f, 0.f, -200.f);
+  glRotatef(clock.getElapsedTime().asSeconds() * 500, 1.f, 0.f, 0.f);
+  glRotatef(clock.getElapsedTime().asSeconds() * 30, 0.f, 1.f, 0.f);
+  glRotatef(clock.getElapsedTime().asSeconds() * 90, 0.f, 0.f, 1.f);
+
+  // Draw the cube
+  glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+  std::ostringstream ss;
+  ss << (frameCount / clock.getElapsedTime().asSeconds()) << " FPS";
+  text.setString(ss.str());
+
+  window.pushGLStates();
+  window.draw(text);
+  window.popGLStates();
+
+  frameCount++;
+
+  /////////////////////////////////////////////////
+  // Finally, display the rendered frame on screen
+  window.display();
+  /////////////////////////////////////////////////
+
+  return 0;
+}
+
+
+
+int main()
+{
+
+
+  setup();
+  // Create a clock for measuring the time elapsed
+
+  sf::Clock clock;
   ///////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////
   // Start the game loop
@@ -148,37 +190,10 @@ int main()
         glViewport(0, 0, event.size.width, event.size.height);
     }
 
-    // Clear the color and depth buffers
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // Apply some transformations to rotate the cube
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glTranslatef(0.f, 0.f, -200.f);
-    glRotatef(clock.getElapsedTime().asSeconds() * 500, 1.f, 0.f, 0.f);
-    glRotatef(clock.getElapsedTime().asSeconds() * 30, 0.f, 1.f, 0.f);
-    glRotatef(clock.getElapsedTime().asSeconds() * 90, 0.f, 0.f, 1.f);
-
-    // Draw the cube
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-
-
-    std::ostringstream ss;
-    ss << (frameCount / clock.getElapsedTime().asSeconds()) << " FPS";
-    text.setString(ss.str());
-
-    window.pushGLStates();
-    window.draw(text);
-    window.popGLStates();
-    
-    frameCount++;
-
-    /////////////////////////////////////////////////
-    // Finally, display the rendered frame on screen
-    window.display();
-    /////////////////////////////////////////////////
+    draw(clock);
   }
 
   return EXIT_SUCCESS;
 }
+
 
