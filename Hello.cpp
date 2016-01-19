@@ -1,12 +1,17 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
+#include <iostream>
+#include <string>
+#include <sstream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-#include <sstream>
-#include <string>
-#include <stdexcept>
+
+
+int frameCount = 0;
+
+using namespace std;
 
 
 ////////////////////////////////////////////////////////////
@@ -157,8 +162,9 @@ int main()
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
         
-        float t = clock.getElapsedTime().asSeconds();
-        text.setString("Hello World! ");
+        std::ostringstream ss;
+        ss << (frameCount / clock.getElapsedTime().asSeconds()) << " FPS";
+        text.setString(ss.str());
 
         window.pushGLStates();
         window.draw(text);
@@ -166,14 +172,11 @@ int main()
 
         // Finally, display the rendered frame on screen
         window.display();
+
+        frameCount++;
     }
 
     return EXIT_SUCCESS;
 }
 
 
-template <typename T> String tostr(const T& t) { 
-     ostringstream os; 
-        os<<t; 
-           return os.str(); 
-} 
