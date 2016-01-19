@@ -139,7 +139,8 @@ int setup(){
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   ratio = static_cast<float>(window.getSize().x) / window.getSize().y;
-  glFrustum(-ratio, ratio, -1.f, 1.f, 1.f, 500.f);
+  //glFrustum(-ratio, ratio, -1.f, 1.f, 1.f, 500.f);
+  glOrtho(-400.f*ratio,400.f*ratio,-400.f,400.f,-400.f,400.f);
 
   // Enable position and color vertex components
   glEnableClientState(GL_VERTEX_ARRAY);
@@ -167,7 +168,7 @@ int draw(sf::Clock clock){
   // Apply some transformations to rotate the cube
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-  glTranslatef(0.f, 0.f, -200.f);
+  glTranslatef(0.f, 0.f, 0.f);
   glRotatef(clock.getElapsedTime().asSeconds() * 5, 1.f, 0.f, 0.f);
   glRotatef(clock.getElapsedTime().asSeconds() * 30, 0.f, 1.f, 0.f);
   glRotatef(clock.getElapsedTime().asSeconds() * 90, 0.f, 0.f, 1.f);
