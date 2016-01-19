@@ -4,6 +4,10 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+#include <sstream>
+#include <string>
+#include <stdexcept>
+
 
 ////////////////////////////////////////////////////////////
 /// Entry point of application
@@ -33,6 +37,7 @@ int main()
     sf::Text text("Hello world!",font);
     text.setColor(sf::Color(255,255,255,170));
     text.setPosition(20.f,20.f);
+    text.setCharacterSize(8);
 
     // Set the color and depth clear values
     glClearDepth(1.f);
@@ -115,6 +120,8 @@ int main()
     // Create a clock for measuring the time elapsed
     sf::Clock clock;
 
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
     // Start the game loop
     while (window.isOpen())
     {
@@ -149,6 +156,10 @@ int main()
         // Draw the cube
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
+        
+        float t = clock.getElapsedTime().asSeconds();
+        text.setString("Hello World! ");
+
         window.pushGLStates();
         window.draw(text);
         window.popGLStates();
@@ -159,3 +170,10 @@ int main()
 
     return EXIT_SUCCESS;
 }
+
+
+template <typename T> String tostr(const T& t) { 
+     ostringstream os; 
+        os<<t; 
+           return os.str(); 
+} 
