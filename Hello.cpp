@@ -170,14 +170,15 @@ int main()
     window.pushGLStates();
     window.draw(text);
     window.popGLStates();
+    
+    frameCount++;
 
+    /////////////////////////////////////////////////
     // Finally, display the rendered frame on screen
     window.display();
-
-    frameCount++;
+    /////////////////////////////////////////////////
   }
 
   return EXIT_SUCCESS;
 }
-
 
