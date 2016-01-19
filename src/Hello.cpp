@@ -115,7 +115,7 @@ int setup(){
     return EXIT_FAILURE;
 
   text.setFont(font);
-  text.setColor(sf::Color(255,255,255,170));
+  text.setColor(sf::Color(255,255,255,75));
   text.setPosition(20.f,20.f);
   text.setCharacterSize(8);
 
