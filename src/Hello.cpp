@@ -91,7 +91,7 @@ int setup(){
   // Make it the active window for OpenGL calls
   window.setActive();
 
-  if(!font.loadFromFile("resources/SempliceRegular.ttf"))
+  if(!font.loadFromFile("assets/SempliceRegular.ttf"))
     return EXIT_FAILURE;
 
   text.setFont(font);

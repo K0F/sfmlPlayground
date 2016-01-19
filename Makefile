@@ -1,9 +1,11 @@
 
-.PHONY: all
+.PHONY: clean all
 
 all:
-	g++ -c Hello.cpp -o hello.o
-	g++ hello.o -o hello -lsfml-graphics -lsfml-window -lsfml-system -lGLU -lGL
-
+	g++ -c src/Hello.cpp -o bin/hello.o
+	g++ bin/hello.o -o bin/hello -lsfml-graphics -lsfml-window -lsfml-system -lGLU -lGL
+	cp -r assets bin/assets
 clean:
-	rm hello.o hello
+	rm -rf bin/*
+run: .PHONY
+	cd bin/ && ./hello
