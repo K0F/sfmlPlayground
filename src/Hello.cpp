@@ -34,6 +34,7 @@
 
 int frameCount = 0;
 
+
 sf::ContextSettings contextSettings;
 sf::RenderWindow window;
 sf::Font font;
