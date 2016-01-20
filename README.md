@@ -1,1 +1,1 @@
-#Brand new C++ SFML OPENGL app by kof
+#Cpp SFML OPENGL Tests
