@@ -21,7 +21,7 @@ file(GLOB_RECURSE assets)
 add_executable(hello ${sources} ${data})
 
 # just for example add some compiler flags
-target_compile_options(hello PUBLIC -std=c++1y -Wall -Wfloat-conversion)
+target_compile_options(hello PUBLIC -std=c++1y -Wall)
 
 # this lets me include files relative to the root src dir with a <> pair
 target_include_directories(hello PUBLIC .) 
@@ -54,7 +54,7 @@ install(TARGETS hello DESTINATION ./)
 # this is basically a repeat of the file copy instruction that copies the
 # resources in the build directory, but here we tell cmake that we want it
 # in the package
-install(DIRECTORY resources DESTINATION ./)
+install(DIRECTORY assets DESTINATION ./)
 
 # now comse everything we need, to create a package
 # there are a lot more variables you can set, and some
