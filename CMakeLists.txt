@@ -94,7 +94,7 @@ include_directories(${OPENGL_INCLUDE_DIR})
 if (OPENGL_FOUND)
   target_link_libraries(${EXECUTABLE_NAME} ${OPENGL_LIBRARIES})
   # or: target_link_libraries(${EXECUTABLE_NAME} ${OPENGL_gl_LIBRARY})
-  target_link_libraries(${EXECUTABLE_NAME} m)  # if you use maths.h
+  # target_link_libraries(${EXECUTABLE_NAME} m)  # if you use maths.h
 endif()
 
 
@@ -114,6 +114,7 @@ set(CPACK_PACKAGE_NAME "hello")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING")
 set(CPACK_PACKAGE_VERSION_MAJOR "${myproject_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${myproject_VERSION_MINOR}")
+
 
 # we don't want to split our program up into several things
 #set(CPACK_MONOLITHIC_INSTALL 1)
