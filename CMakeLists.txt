@@ -109,15 +109,15 @@ install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
 
 
 # CPack packaging
-include(InstallRequiredSystemLibraries)
-set(CPACK_PACKAGE_NAME "hello")
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING")
-set(CPACK_PACKAGE_VERSION_MAJOR "${myproject_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${myproject_VERSION_MINOR}")
+#include(InstallRequiredSystemLibraries)
+#set(CPACK_PACKAGE_NAME "hello")
+#set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING")
+#set(CPACK_PACKAGE_VERSION_MAJOR "${myproject_VERSION_MAJOR}")
+#set(CPACK_PACKAGE_VERSION_MINOR "${myproject_VERSION_MINOR}")
 
 
 # we don't want to split our program up into several things
 #set(CPACK_MONOLITHIC_INSTALL 1)
 
 # This must be last
-include(CPack)
+#include(CPack)
