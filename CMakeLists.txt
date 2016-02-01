@@ -105,11 +105,18 @@ install(TARGETS ${EXECUTABLE_NAME} DESTINATION bin)
 # there are a lot more variables you can set, and some
 # you need to set for some package types, but we want to
 # be minimal here
+
+
+
+# CPack packaging
+include(InstallRequiredSystemLibraries)
 set(CPACK_PACKAGE_NAME "hello")
-set(CPACK_PACKAGE_VERSION "1.0.0")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/COPYING")
+set(CPACK_PACKAGE_VERSION_MAJOR "${myproject_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${myproject_VERSION_MINOR}")
 
 # we don't want to split our program up into several things
-set(CPACK_MONOLITHIC_INSTALL 1)
+#set(CPACK_MONOLITHIC_INSTALL 1)
 
 # This must be last
 include(CPack)
